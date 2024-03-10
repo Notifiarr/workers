@@ -3,10 +3,13 @@
 # This is the entry point for setting up a worker. Download and run this script on a fresh Ubuntu 22.04 server.
 
 curl -s https://golift.io/repo.sh | sudo bash -s - notifiarr
+
 echo "Adding Nonpublic Golift APT repo"
-echo "deb [signed-by=/usr/share/keyrings/golift-archive-keyring.gpg] https://packagecloud.io/golift/nonpublic/ubuntu focal main" | \
+curl -sL https://packagecloud.io/golift/nonpublic/gpgkey | gpg --dearmor | sudo tee /usr/share/keyrings/golift-nonpublic-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/golift-nonpublic-keyring.gpg] https://packagecloud.io/golift/nonpublic/ubuntu focal main" | \
     sudo tee /etc/apt/sources.list.d/golift-nonpublic.list
-sudo add-apt-repository ppa:ondrej/php
+
+sudo add-apt-repository -y ppa:ondrej/php
 sudo apt install -y notifiarr-workers
 
 if ! grep -q /share /etc/fstab ; then
