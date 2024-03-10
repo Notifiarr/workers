@@ -1,7 +1,11 @@
+# GitHub Actions runs this script to build a deb package.
+# You can run this locally, you just need to gem install fpm.
+# See the release.yml workflow file for a command to do that.
+
 MAINT="David Newhall II <captain at golift dot io>"
 DESC="Official Worker for Notifiarr.com"
 LICENSE="GPLv2"
-# Used for source links in package metadata and docker labels.
+# Used for source links in package metadata.
 SOURCE_URL="https://github.com/Notifiarr/workers"
 VENDOR="Go Lift <code@golift.io>"
 
@@ -50,6 +54,7 @@ read -r -d '' PACKAGE_ARGS <<- PACKAGE_ARGS
     --description='${DESC}'
 PACKAGE_ARGS
 
+mkdir -p root/var/log/workers
 rm -f ${PACKAGE_NAME}_${VERSION}-${ITERATION}_amd64.deb
 echo fpm -s dir -t deb ${PACKAGE_ARGS} ${DEPENDS} -a amd64 -v ${VERSION} -C root/
 eval fpm -s dir -t deb ${PACKAGE_ARGS} ${DEPENDS} -a amd64 -v ${VERSION} -C root/

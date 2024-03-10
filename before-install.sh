@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# This is the preinst deb package script.
+
 add-apt-repository ppa:ondrej/php
 # Make a user and group for this app, but only if it does not already exist.
 id abc >/dev/null 2>&1 || \

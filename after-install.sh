@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# This is the postinst deb package script.
+
 if [ -d ~abc/.ssh ]; then
   chown -R abc: ~abc/.ssh
 fi
