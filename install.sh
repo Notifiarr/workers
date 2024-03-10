@@ -15,12 +15,13 @@ if ! grep -q /share /etc/fstab ; then
     sudo mount /share
 fi
 
-if [ -f /share/workers/defaults/notifiarr.conf ]; then
+if [ -f /share/workers/defaults/notifiarr.conf ] && ! diff -s /etc/notifiarr/notifiarr.conf /share/workers/defaults/notifiarr.conf >/dev/null; then
+    echo "Installing notifiarr.conf and restarting the client"
     sudo cp /share/workers/defaults/notifiarr.conf /etc/notifiarr/
     sudo systemctl restart notifiarr
 fi
 
-if [ -f /share/workers/defaults/datadog-api-key.txt ]; then
+if [ -f /share/workers/defaults/datadog-api-key.txt ] && [ ! -d /etc/datadog-agent ]; then
     echo "Installing datadog agent."
     DD_API_KEY=$(head -n1 /share/workers/defaults/datadog-api-key.txt) \
     DD_SITE="datadoghq.com" \
@@ -28,9 +29,10 @@ if [ -f /share/workers/defaults/datadog-api-key.txt ]; then
         bash -c "$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script_agent7.sh)"
 fi
 
-echo "Creating Datadog environment config file: /etc/datadog-agent/environment"
-mkdir -p /etc/datadog-agent/
-echo "DD_PROCESS_AGENT_ENABLED=true"                     | sudo tee    /etc/datadog-agent/environment
-echo "DD_SYSTEM_PROBE_NETWORK_ENABLED=true"              | sudo tee -a /etc/datadog-agent/environment
-echo "DD_PROCESS_CONFIG_PROCESS_COLLECTION_ENABLED=true" | sudo tee -a /etc/datadog-agent/environment
-sudo systemctl restart datadog-agent
+if [ ! -f /etc/datadog-agent/environment ] && [ -d /etc/datadog-agent ]; then
+    echo "Creating Datadog environment config file: /etc/datadog-agent/environment"
+    echo "DD_PROCESS_AGENT_ENABLED=true"                     | sudo tee    /etc/datadog-agent/environment
+    echo "DD_SYSTEM_PROBE_NETWORK_ENABLED=true"              | sudo tee -a /etc/datadog-agent/environment
+    echo "DD_PROCESS_CONFIG_PROCESS_COLLECTION_ENABLED=true" | sudo tee -a /etc/datadog-agent/environment
+    sudo systemctl restart datadog-agent
+fi
