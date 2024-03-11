@@ -30,6 +30,7 @@ read -r -d '' DEPENDS <<- DEPENDS
     --depends nfs-client
     --depends telegraf
     --depends software-properties-common
+    --depends php-pear
     --depends php8.3-redis
     --depends php8.3-memcached
     --depends php8.3-mysql
@@ -45,7 +46,6 @@ read -r -d '' PACKAGE_ARGS <<- PACKAGE_ARGS
     --before-remove before-remove.sh
     --name ${PACKAGE_NAME}
     --deb-no-default-config-files
-    --rpm-os linux
     --iteration ${ITERATION}
     --license ${LICENSE}
     --url ${SOURCE_URL}
