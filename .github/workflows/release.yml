@@ -52,7 +52,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: release
-      - uses: golift/upload-packagecloud@v1
+      - uses: golift/upload-packagecloud@v1.1
         with:
           userrepo: golift/nonpublic
           apitoken: ${{ secrets.PACKAGECLOUD_TOKEN }}
