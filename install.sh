@@ -17,6 +17,10 @@ if ! grep -q /share /etc/fstab ; then
     echo "Adding /share mount to /etc/fstab:"
     echo "10.1.0.92:/volume1/data/share /share nfs rw,noatime,norelatime,async,vers=4.0,rsize=131072,wsize=131072,soft,sec=sys 0 0" | \
         sudo tee -a /etc/fstab
+fi
+
+if [ ! -d /share/workers ]; then
+    sudo mkdir -p /share
     sudo mount /share
 fi
 
