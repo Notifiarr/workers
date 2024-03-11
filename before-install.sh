@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This is the preinst deb package script.
+# This is the preinst deb package script. It runs before the package is installed.
 
 # Make a user and group for this app, but only if it does not already exist.
 id abc >/dev/null 2>&1 || \

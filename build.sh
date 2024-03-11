@@ -18,11 +18,7 @@ COMMIT="$(git rev-parse --short HEAD || echo 0)"
 GIT_BRANCH="$(git rev-parse --abbrev-ref HEAD || echo unknown)"
 BRANCH="${GIT_BRANCH:-${GITHUB_REF_NAME}}"
 
-# Import this signing key only if it's in the keyring.
-if gpg --list-keys 2>/dev/null | grep -q B93DD66EF98E54E2EAE025BA0166AD34ABC5A57C; then
-    export SIGNING_KEY=B93DD66EF98E54E2EAE025BA0166AD34ABC5A57C
-fi
-
+SIGNING_KEY=B93DD66EF98E54E2EAE025BA0166AD34ABC5A57C
 PACKAGE_NAME="notifiarr-worker"
 
 read -r -d '' DEPENDS <<- DEPENDS
@@ -30,7 +26,7 @@ read -r -d '' DEPENDS <<- DEPENDS
     --depends nfs-client
     --depends telegraf
     --depends software-properties-common
-    --depends php-pear
+    --depends sudo
     --depends php8.3-redis
     --depends php8.3-memcached
     --depends php8.3-mysql
@@ -60,4 +56,8 @@ echo fpm -s dir -t deb ${PACKAGE_ARGS} ${DEPENDS} -a amd64 -v ${VERSION} -C root
 eval fpm -s dir -t deb ${PACKAGE_ARGS} ${DEPENDS} -a amd64 -v ${VERSION} -C root/
 echo
 ls -l
-[ "${SIGNING_KEY}" = "" ] || debsigs --default-key="${SIGNING_KEY}" --sign=origin ${PACKAGE_NAME}_${VERSION}-${ITERATION}_amd64.deb
+
+# Sign the package if the signing key is in the gpg keychain.
+if gpg --list-keys 2>/dev/null | grep -q "${SIGNING_KEY}" ; then
+    debsigs --default-key="${SIGNING_KEY}" --sign=origin ${PACKAGE_NAME}_${VERSION}-${ITERATION}_amd64.deb
+fi

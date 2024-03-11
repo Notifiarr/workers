@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This is the postinst deb package script.
+# This is the postinst deb package script. It runs after the package contents are installed.
 
 if [ -d ~abc/.ssh ]; then
   chown -R abc: ~abc/.ssh

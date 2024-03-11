@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # This is the entry point for setting up a worker. Download and run this script on a fresh Ubuntu 22.04 server.
+# Make sure the new server has access to the NFS /share (see below). It's safe to run this more than once; in case you forgot.
 
 curl -s https://golift.io/repo.sh | sudo bash -s - notifiarr
 

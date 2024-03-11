@@ -31,3 +31,8 @@ package, the [install.sh](install.sh) script installs and configures:
 - [PPA for ondrej/php](https://launchpad.net/~ondrej/+archive/ubuntu/php)
 - NFS `/share` mount
 - [Datadog Agent](https://app.datadoghq.com/account/settings/agent/latest?platform=ubuntu)
+
+# License
+
+- This software is Copyright 2024 Notifiarr, LLC.
+- Read the [license](LICENSE) if you intend to make copies.
