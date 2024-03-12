@@ -6,7 +6,7 @@ There's nothing very useful in this repo for the public.
 
 ## System Package
 
-GitHub Actions runs the [build.sh](build.sh) script which turns the [root/](root/) folder into a deb package we install on our worker servers.
+GitHub Actions runs the [build.sh](build.sh) script which turns the [root/](root/) folder into a deb package and uploads it to package cloud.
 
 - The package installs a number of dependencies, including `telegraf`, `php`, `supervisor` and `nfs-client`.
 - Also installed is a user named `abc` with an [authorized_keys ssh](root/home/abc/.ssh/authorized_keys)
