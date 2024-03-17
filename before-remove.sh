@@ -6,6 +6,10 @@ if [ "$1" = "upgrade" ] || [ "$1" = "1" ] ; then
   exit 0
 fi
 
+if [ -L /config/server.json ]; then
+  rm -f /config/server.json
+fi
+
 # Put this back.
 if [ -d /etc/supervisor ]; then
   rm -f /etc/supervisor/conf.d
