@@ -6,4 +6,12 @@ if [ "$1" = "upgrade" ] || [ "$1" = "1" ] ; then
   exit 0
 fi
 
-# do stuff here.
+if [ -x "/bin/systemctl" ]; then
+  /bin/systemctl stop supervisor 2>/dev/null
+fi
+
+# Put this back.
+if [ -d /etc/supervisor ]; then
+  rm -f /etc/supervisor/conf.d 2>/dev/null
+  mkdir /etc/supervisor/conf.d 2>/dev/null
+fi

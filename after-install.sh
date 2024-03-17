@@ -13,3 +13,5 @@ fi
 if [ -x "/bin/systemctl" ]; then
   /bin/systemctl daemon-reload
 fi
+
+rm -rf /etc/supervisor/conf.d
