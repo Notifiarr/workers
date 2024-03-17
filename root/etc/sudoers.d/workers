@@ -1,1 +1,1 @@
-abc ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart supervisor
+abc ALL=(root) NOPASSWD: /usr/bin/systemctl restart supervisor
