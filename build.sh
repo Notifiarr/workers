@@ -52,8 +52,6 @@ read -r -d '' PACKAGE_ARGS <<- PACKAGE_ARGS
     --vendor='${VENDOR}'
 PACKAGE_ARGS
 
-mkdir -p root/var/log/workers
-
 rm -f ${PACKAGE_NAME}_${VERSION}-${ITERATION}_amd64.deb
 echo fpm -s dir -t deb ${PACKAGE_ARGS} ${DEPENDS} -a amd64 -v ${VERSION} -C root/
 eval fpm -s dir -t deb ${PACKAGE_ARGS} ${DEPENDS} -a amd64 -v ${VERSION} -C root/

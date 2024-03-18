@@ -5,15 +5,7 @@
 set -e
 
 if [ -d ~abc/.ssh ]; then
-  chown -R abc: ~abc/.ssh
-fi
-
-if [ -d "/var/log/workers" ]; then
-  chown -R abc: /var/log/workers
-fi
-
-if [ -d "/etc/supervisor/conf.d" ]; then
-  rm -rf /etc/supervisor/conf.d
+  chown -R abc: ~abc
 fi
 
 if [ -x "/bin/systemctl" ]; then

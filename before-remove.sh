@@ -10,10 +10,8 @@ if [ -L /config/server.json ]; then
   rm -f /config/server.json
 fi
 
-# Put this back.
-if [ -d /etc/supervisor ]; then
-  rm -f /etc/supervisor/conf.d
-  mkdir /etc/supervisor/conf.d
+if [ -L /config/log ]; then
+  rm -f /config/log
 fi
 
 if [ -x "/bin/systemctl" ]; then
