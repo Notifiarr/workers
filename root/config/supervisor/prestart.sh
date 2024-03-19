@@ -1,9 +1,10 @@
 #!/usr/bin/bash
 
-PATH=/usr/bin
-
 # This script is executed by systemd before sueprvisord is started.
 # See: https://github.com/Notifiarr/workers/blob/main/root/etc/systemd/system/supervisor.service.d/notifiarr.conf
+
+set -e
+PATH=/usr/bin
 
 # Before starting supervisor, we create a symlink to the website config file for this server.
 ln -sf "/share/websites/confs/server.$(hostname -s)" "/config/server.json"
