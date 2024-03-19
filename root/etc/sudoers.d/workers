@@ -1,1 +1,4 @@
 abc ALL=(root) NOPASSWD: /usr/bin/systemctl restart supervisor
+abc ALL=(root) NOPASSWD: /usr/sbin/reboot
+abc ALL=(root) NOPASSWD: apt update
+abc ALL=(root) NOPASSWD: apt install notifiarr-workers
