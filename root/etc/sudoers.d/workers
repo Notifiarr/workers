@@ -1,4 +1,7 @@
+# Give workers access to a few things as root. They run as user abc.
+# The manager container also has access to run commands listed here.
 abc ALL=(root) NOPASSWD: /usr/bin/systemctl restart supervisor
+abc ALL=(root) NOPASSWD: /usr/bin/systemctl start supervisor
 abc ALL=(root) NOPASSWD: /usr/sbin/reboot
 abc ALL=(root) NOPASSWD: /usr/bin/apt update
-abc ALL=(root) NOPASSWD: /usr/bin/apt install notifiarr-workers
+abc ALL=(root) NOPASSWD: /usr/bin/apt install -y notifiarr-worker

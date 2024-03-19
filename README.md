@@ -12,7 +12,9 @@ GitHub Actions runs the [build.sh](build.sh) script which turns the [root/](root
 - Also installed is a user named `abc` with an [authorized_keys ssh](root/home/abc/.ssh/authorized_keys)
     file and a [sudoers](root/etc/sudoers.d/workers) entry that allows the website to restart supervisor.
 - The [systemd unit override](root/etc/systemd/system/supervisor.service.d/notifiarr.conf)
-    allows us to create dynamic symlinks to the supervisor config files for this host.
+    allows us to create [dynamic symlinks](root/config/supervisor/prestart.sh) to the supervisor config files for this host.
+- The unit also overrides the [supervisord.conf](root/config/supervisor/supervisord.conf) file so we can fully control
+    the service and include php-built configs from `/share`.
 - Telegraf is also [fully configured](root/etc/telegraf/telegraf.d/notifiarr.conf) during package installation.
 
 ## Use
