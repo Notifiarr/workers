@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Keep everything up to date!
+# This crontab is part of the notifiarr-worker package.
+
+DEBIAN_FRONTEND=noninteractive
+LOGDIR="/var/log/apt-output"
+
+mkdir -p "${LOGDIR}"
+
+/usr/bin/apt update > "${LOGDIR}/update.log" 2>&1
+/usr/bin/apt upgrade -y > "${LOGDIR}/upgrade.log" 2>&1

@@ -34,6 +34,7 @@ read -r -d '' DEPENDS <<- DEPENDS
     --depends php8.3-xml
     --depends software-properties-common
     --depends sudo
+    --depends cron
     --depends supervisor
     --depends telegraf
 DEPENDS
