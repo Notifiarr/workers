@@ -18,6 +18,7 @@ if [ -x "/bin/systemctl" ]; then
   /bin/systemctl daemon-reload
 
   if [ -d "/share/websites/www" ]; then
+    echo "Restarting supervisor daemon!"
     /bin/systemctl restart supervisor
   fi
 fi
@@ -26,6 +27,7 @@ fi
 if [ -d "/share/workers/defaults/ssh/$(hostname -s)" ] && \
   ! diff -q "/share/workers/defaults/ssh/$(hostname -s)/ssh_host_ecdsa_key" /etc/ssh/ssh_host_ecdsa_key >/dev/null 2>&1
 then
+  echo "SSH Host keys updated. Restarting SSH daemon!"
   cp -r "/share/workers/defaults/ssh/$(hostname -s)/ssh_host_*" /etc/ssh/
   /bin/systemctl restart sshd
 fi
