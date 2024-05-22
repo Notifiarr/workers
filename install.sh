@@ -16,7 +16,7 @@ sudo apt install -y notifiarr-worker
 
 if ! grep -q /share /etc/fstab ; then
     echo "Adding /share mount to /etc/fstab:"
-    echo "10.1.0.92:/volume1/data/share /share nfs rw,noatime,norelatime,async,vers=4.0,rsize=131072,wsize=131072,soft,sec=sys 0 0" | \
+    echo "10.1.0.92:/volume1/data/share /share nfs rw,noatime,norelatime,async,vers=4.0,rsize=131072,wsize=131072,soft,sec=sys,auto 0 0" | \
         sudo tee -a /etc/fstab
 fi
 
