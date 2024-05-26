@@ -12,6 +12,10 @@ ln -sf "/share/websites/confs/server.$(hostname -s)" "/config/server.json"
 # We also create a symlink to a server-specific log directory in shared storage.
 ln -Tsf "/share/logs/notifiarr/supervisor/$(hostname -s)" "/config/log"
 
+mkdir "/share/workers/$(hostname -s)"
+mkdir "/share/workers/$(hostname -s)/supervisor"
+cp /share/workers/defaults/local.conf "/share/workers/$(hostname -s)/supervisor"
+
 # This php script creates (builds) the supervisord configurations for this server.
 php /share/websites/www/notifiarr.com/supervisor/confBuilder.php
 # The files created by confBuilder.php go in this directory. Fix their ownership.
