@@ -9,4 +9,4 @@ LOGDIR="/var/log/apt-output"
 mkdir -p "${LOGDIR}"
 
 /usr/bin/apt update > "${LOGDIR}/update.log" 2>&1
-/usr/bin/apt upgrade -y > "${LOGDIR}/upgrade.log" 2>&1
+/usr/bin/apt upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" > "${LOGDIR}/upgrade.log" 2>&1
