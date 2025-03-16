@@ -16,6 +16,10 @@ mkdir -p "/share/workers/$(hostname -s)/supervisor"
 cp /share/workers/defaults/local.conf "/share/workers/$(hostname -s)/supervisor"
 
 # This php script creates (builds) the supervisord configurations for this server.
-php /share/websites/www/notifiarr.com/supervisor/confBuilder.php
+if ! php /share/websites/www/notifiarr.com/supervisor/confBuilder.php; then
+  echo "The previous error is from confBuilder.php" >&2
+  exit 1
+fi
+
 # The files created by confBuilder.php go in this directory. Fix their ownership.
 chown -R abc: "/share/workers/$(hostname -s)/supervisor"
