@@ -19,9 +19,10 @@ GitHub Actions runs the [build.sh](build.sh) script which turns the [root/](root
 
 ## Use
 
-First make sure the new Ubuntu 22.04 server's IP has access to the NFS `/share`.
+First make sure the new Ubuntu 24.04 server's IP has access to the NFS `/share`.
 
 Then run the included install script. Like this:
+
 ```bash
 curl -sL https://raw.githubusercontent.com/Notifiarr/workers/main/install.sh | sudo bash
 ```
@@ -31,10 +32,10 @@ package, the [install.sh](install.sh) script installs and configures:
 
 - [Notifiarr Client](https://github.com/Notifiarr/notifiarr)
 - [PPA for ondrej/php](https://launchpad.net/~ondrej/+archive/ubuntu/php)
+- [Influx APT Repo](https://docs.influxdata.com/influxdb/v1/introduction/install/#installing-influxdb-oss)
 - NFS `/share` mount
-- [Datadog Agent](https://app.datadoghq.com/account/settings/agent/latest?platform=ubuntu)
 
-# License
+## License
 
-- This software is Copyright 2024 Notifiarr, LLC.
-- Read the [license](LICENSE) if you intend to make copies.
+- This software is Copyright Notifiarr, LLC.
+- Read the [GPLv2 license](LICENSE) if you intend to make copies.
