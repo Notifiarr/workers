@@ -2,6 +2,7 @@
 # The manager container also has access to run commands listed here.
 # Use DEBIAN_FRONTEND=noninteractive sudo -E for apt upgades.
 abc ALL=(root) NOPASSWD: /usr/bin/systemctl restart supervisor
+abc ALL=(root) NOPASSWD: /usr/bin/systemctl status supervisor
 abc ALL=(root) NOPASSWD: /usr/bin/systemctl start supervisor
 abc ALL=(root) NOPASSWD: /usr/sbin/reboot
 abc ALL=(root) NOPASSWD: /usr/bin/apt update
