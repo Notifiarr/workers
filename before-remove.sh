@@ -14,6 +14,6 @@ if [ -L /config/log ]; then
   rm -f /config/log
 fi
 
-if [ -x "/bin/systemctl" ]; then
+if [ -d /run/systemd/system ]; then
   /bin/systemctl stop supervisor
 fi
