@@ -20,18 +20,20 @@ BRANCH="${GIT_BRANCH:-${GITHUB_REF_NAME}}"
 #
 SIGNING_KEY=B93DD66EF98E54E2EAE025BA0166AD34ABC5A57C
 PACKAGE_NAME="notifiarr-worker"
+# Minimum PHP 8.5 release. Renovate bumps this from php/php-src tags.
+PHP_VERSION=8.5.12
 ##
 
 read -r -d '' DEPENDS <<- DEPENDS
     --depends mysql-client-core-8.0
     --depends nfs-client
-    --depends php8.3-cli
-    --depends php8.3-curl
-    --depends php8.3-mbstring
-    --depends php8.3-memcached
-    --depends php8.3-mysql
-    --depends php8.3-redis
-    --depends php8.3-xml
+    --depends 'php8.5-cli (>= ${PHP_VERSION})'
+    --depends 'php8.5-curl (>= ${PHP_VERSION})'
+    --depends 'php8.5-mbstring (>= ${PHP_VERSION})'
+    --depends php8.5-memcached
+    --depends 'php8.5-mysql (>= ${PHP_VERSION})'
+    --depends php8.5-redis
+    --depends 'php8.5-xml (>= ${PHP_VERSION})'
     --depends software-properties-common
     --depends sudo
     --depends cron

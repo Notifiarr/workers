@@ -8,7 +8,7 @@ There's nothing very useful in this repo for the public.
 
 GitHub Actions runs the [build.sh](build.sh) script which turns the [root/](root/) folder into a deb package and uploads it to package cloud.
 
-- The package installs a number of dependencies, including `telegraf`, `php`, `supervisor` and `nfs-client`.
+- The package installs a number of dependencies, including `telegraf`, PHP 8.5 (>= 8.5.12), `supervisor` and `nfs-client`.
 - Also installed is a user named `abc` with an [authorized_keys ssh](root/home/abc/.ssh/authorized_keys)
     file and a [sudoers](root/etc/sudoers.d/workers) entry that allows the website to restart supervisor.
 - The [systemd unit override](root/etc/systemd/system/supervisor.service.d/notifiarr.conf)
