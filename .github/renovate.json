@@ -1,6 +1,32 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "helpers:pinGitHubActionDigestsToSemver"
+  ],
+  "platformAutomerge": true,
+  "internalChecksFilter": "strict",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^build\\.sh$/"],
+      "matchStrings": ["PHP_VERSION=(?<currentValue>\\d+\\.\\d+\\.\\d+)"],
+      "depNameTemplate": "php/php-src",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^php-(?<version>8\\.5\\.\\d+)$"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Automerge GitHub Actions updates, including majors, when checks pass",
+      "matchManagers": ["github-actions"],
+      "automerge": true
+    },
+    {
+      "description": "Automerge PHP 8.5 patch releases in build.sh when checks pass",
+      "matchPackageNames": ["php/php-src"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    }
   ]
 }

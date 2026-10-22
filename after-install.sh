@@ -14,7 +14,7 @@ if [ -d ~abc/.ssh ]; then
   chown -R abc: ~abc
 fi
 
-if [ -x "/bin/systemctl" ]; then
+if [ -d /run/systemd/system ]; then
   /bin/systemctl daemon-reload
 
   if [ -d "/share/websites/www" ]; then
@@ -29,5 +29,7 @@ if [ -d "/share/workers/defaults/ssh/$(hostname -s)" ] && \
 then
   echo "SSH Host keys updated. Restarting SSH daemon!"
   cp -r "/share/workers/defaults/ssh/$(hostname -s)/ssh_host_*" /etc/ssh/
-  /bin/systemctl restart sshd
+  if [ -d /run/systemd/system ]; then
+    /bin/systemctl restart sshd
+  fi
 fi
