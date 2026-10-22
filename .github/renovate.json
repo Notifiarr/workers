@@ -23,6 +23,12 @@
       "automerge": true
     },
     {
+      "description": "Worker hosts are Ubuntu 24.04, and ppa:ondrej/php has no 26.04 suite. Leave the GitHub runner on 24.04.",
+      "matchDatasources": ["github-runner", "github-runners"],
+      "matchPackageNames": ["ubuntu"],
+      "enabled": false
+    },
+    {
       "description": "Automerge PHP 8.5 patch releases in build.sh when checks pass",
       "matchPackageNames": ["php/php-src"],
       "matchUpdateTypes": ["patch"],
