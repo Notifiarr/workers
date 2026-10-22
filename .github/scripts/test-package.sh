@@ -18,6 +18,13 @@ echo "required php >= ${php_min}"
 
 asroot apt-get update
 asroot apt-get install -y ruby ruby-dev build-essential fakeroot git curl ca-certificates gnupg software-properties-common
+# GitHub's Ubuntu image ships PHP 8.3. Workers only use 8.5.
+mapfile -t php83 < <(dpkg-query -W -f '${Package}\n' 'php8.3*' 2>/dev/null || true)
+if [ "${#php83[@]}" -gt 0 ]; then
+  echo "removing preinstalled php 8.3: ${php83[*]}"
+  asroot apt-get purge -y "${php83[@]}"
+  asroot apt-get autoremove -y
+fi
 # A mounted checkout can be owned by another user. This only affects this job.
 git config --global --add safe.directory "$root"
 asroot gem install --no-document fpm
@@ -60,6 +67,11 @@ asroot apt-get install -y "./${deb}"
 php -v
 PHP_MIN="$php_min" php -r 'exit(version_compare(PHP_VERSION, getenv("PHP_MIN"), ">=") ? 0 : 1);'
 echo "php $(php -r 'echo PHP_VERSION;') satisfies >= ${php_min}"
+if dpkg-query -W -f '${Package}\n' 'php8.3*' 2>/dev/null | grep -q .; then
+  echo "php 8.3 is still installed" >&2
+  dpkg-query -W -f '${Package} ${Version}\n' 'php8.3*' >&2 || true
+  exit 1
+fi
 
 for mod in curl mbstring memcached mysqli redis xml; do
   if ! php -m | grep -qx "$mod"; then
@@ -70,10 +82,16 @@ for mod in curl mbstring memcached mysqli redis xml; do
   echo "php module ${mod} ok"
 done
 
-test -f /etc/sudoers.d/workers
-test -f /etc/systemd/system/supervisor.service.d/notifiarr.conf
-test -f /etc/telegraf/telegraf.d/notifiarr.conf
-test -x /config/supervisor/prestart.sh
-test -f /home/abc/.ssh/authorized_keys
-id abc >/dev/null
+check() {
+  if ! asroot "$@"; then
+    echo "check failed: $*" >&2
+    exit 1
+  fi
+}
+check test -f /etc/sudoers.d/workers
+check test -f /etc/systemd/system/supervisor.service.d/notifiarr.conf
+check test -f /etc/telegraf/telegraf.d/notifiarr.conf
+check test -x /config/supervisor/prestart.sh
+check test -f /home/abc/.ssh/authorized_keys
+check id abc
 echo "package install ok"
